@@ -1,0 +1,77 @@
+{% extends 'productoapp/base_home.html' %}
+  {% block main %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <br />
+    <!-- ./ End Page Heading-->
+    <!-- Form Register Employee-->
+    <form method="post" enctype="multipart/form-data" >
+      {% csrf_token %}
+      <div class="row">
+        {% for fields in form %}
+          <div class="col">
+            {{fields}}
+          </div>
+        {% endfor %}
+        <div class="col">
+          <button type="submit" class="btn btn-success btn-block">Save</button>
+        </div>
+      </div>
+    </form>
+    <br />
+    <!-- ./ End Form Register Employee-->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Products</h6>
+      </div>
+      <div class="card-body">
+        {% if not productos %}
+          <h2>Not data found</h2>
+        {% else %}
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+              <thead class="table-dark">
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Code</th>
+                  <th>Fabricante</th>
+                  <th>Origen</th>
+                  <th>Precio</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tfoot class="table-dark">
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Code</th>
+                  <th>Fabricante</th>
+                  <th>Origen</th>
+                  <th>Precio</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+              <tbody>
+                {% for emp in productos %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'edit_product' pk=emp.pk %}">{{ emp.name }}</a></td>
+                    <td>{{ emp.code }}</td>
+                    <td>{{ emp.fabricante }}</td>
+                    <td>{{ emp.origen }}</td>
+                    <td>{{ emp.precio }}</td>
+                    <td class="text-center">
+                      <a href="{% url 'delete_product' pk=emp.pk %}"><i class="fas fa-trash-alt text-danger"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <!-- ./ End DataTales Example -->
+  {% endblock %}

@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Producto(models.Model):
-    name = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
     code = models.IntegerField()
     fabricante = models.CharField(max_length=200)
     origen = models.CharField(max_length=200)
