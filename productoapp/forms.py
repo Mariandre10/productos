@@ -14,8 +14,8 @@ class ProductForm(forms.ModelForm):
         model = Producto
         fields = ['name', 'code', 'fabricante', 'origen', 'precio']
         widgets = {
-            'name': forms.TextInput(attrs={'class':'form-control','placeholder':'Name'}),
-            'code': forms.TextInput(attrs={'class':'form-control','placeholder':'Code'}),
+            'name': forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre'}),
+            'code': forms.TextInput(attrs={'class':'form-control','placeholder':'Codigo'}),
             'fabricante': forms.TextInput(attrs={'class':'form-control','placeholder':'Fabricante'}),
             'origen': forms.TextInput(attrs={'class':'form-control','placeholder':'Origen'}),
             'precio': forms.TextInput(attrs={'class':'form-control','placeholder':'Precio'})

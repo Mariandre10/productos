@@ -27,7 +27,15 @@ def home(request):
     if not request.user.is_authenticated:
         return render(request, 'productoapp/login.html', {'form':LoginForm})
     else:
-        return render(request, 'productoapp/home.html')
+        if request.method == 'POST':
+            form = ProductForm(request.POST)
+            if form.is_valid():
+                form.save()
+            else:
+                form = ProductForm()
+        productos = Producto.objects.order_by('name')
+        return render(request, 'productoapp/home.html', {'productos':productos,'form':ProductForm})
+        #return render(request, 'productoapp/home.html')
 
 def table(request):
     if request.method == 'POST':
@@ -38,19 +46,14 @@ def table(request):
         form = ProductForm()
     productos = Producto.objects.order_by('name')
     print(productos)
-    return render(request, 'productoapp/table.html', {'productos':productos,'form':ProductForm})
+    return render(request, 'productoapp/home.html', {'productos':productos,'form':ProductForm})
 
-def charts(request):
-    if not request.user.is_authenticated:
-        return render(request, 'productoapp/login.html', {'form':LoginForm})
-    else:
-        return render(request, 'productoapp/charts.html')
 
 def delete_product(request, pk):
     producto = Producto.objects.get(id=pk)
     if request.method == 'POST':
         producto.delete()
-        return redirect('table')
+        return redirect('home')
     return render(request, 'productoapp/delete_product.html', {'form':ProductForm})
 
 def edit_product(request, pk):
@@ -61,5 +64,5 @@ def edit_product(request, pk):
         form = ProductForm(request.POST, instance=producto)
         if form.is_valid():
             form.save()
-            return redirect('table')
+            return redirect('home')
     return render(request,'productoapp/edit_product.html',{'form':form})

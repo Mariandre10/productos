@@ -35,19 +35,6 @@
         </li>
         <!-- Divider -->
         <hr class="sidebar-divider">
-        <!-- Heading -->
-        <div class="sidebar-heading">Information</div>
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'charts' %}"><i class="fas fa-fw fa-chart-area"></i><span>Charts</span></a>
-        </li>
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'table' %}">
-            <i class="fas fa-fw fa-table"></i><span>Tables</span></a>
-        </li>
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -65,7 +52,7 @@
             <!-- Topbar Search -->
             <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
               <div class="input-group">
-                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <input id="buscador" type="text" class="form-control bg-light border-0 small" placeholder="Buscar producto..." aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="button"><i class="fas fa-search fa-sm"></i></button>
                 </div>
@@ -199,17 +186,17 @@
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                   <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Profile
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Perfil
                   </a>
                   <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Settings
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Configuración
                   </a>
                   <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Activity Log
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Actividad
                   </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Salir
                   </a>
                 </div>
               </li>
@@ -228,7 +215,7 @@
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright &copy; Django Web 2019 - StartBootstrap</span>
+              <span>Copyright &copy; Django Web 2020 - StartBootstrap</span>
               <br />
               <span>Maria Hernandez</span>
             </div>
@@ -275,5 +262,18 @@
       <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
       <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
     {% endblock %}
+    <script>
+      $('#buscador').keyup(function(){
+        _this = this;
+        $.each($('#dataTable tbody tr'), function(){
+          if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1){
+            $(this).hide();
+          }
+          else {
+            $(this).show();
+          }
+        });
+      });
+    </script>
   </body>
 </html>
